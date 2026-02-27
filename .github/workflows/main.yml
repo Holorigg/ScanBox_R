@@ -24,7 +24,7 @@ jobs:
     
     - name: Build EXE
       run: |
-        pyinstaller --onefile --name ScanBox --windowed New_Test.py
+        pyinstaller --onefile --name ScanBox 2.0 --windowed ScanBox_R.py
     
     - name: Upload artifact
       uses: actions/upload-artifact@v4  # 👈 ИЗМЕНЕНО: было v2, стало v4
