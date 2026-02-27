@@ -1,0 +1,33 @@
+name: Build EXE
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+    
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Setup Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.9'
+        architecture: 'x64'
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pyinstaller pyqt5 openpyxl pyzbar pyperclip
+    
+    - name: Build EXE
+      run: |
+        pyinstaller --onefile --name ScanBox --windowed New_Test.py
+    
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4  # 👈 ИЗМЕНЕНО: было v2, стало v4
+      with:
+        name: ScanBox
+        path: dist/ScanBox.exe
